@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Heading,
   HStack,
@@ -8,16 +9,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Cards } from "../../components/cards";
-import { CartModal } from "../../components/modal";
 import { SearchBox } from "../../components/searchBox";
 import { theme } from "../../styles/themes";
 
 export const Dashboard = () => {
-  const { isOpen, onClose } = useDisclosure();
   const isWide = useBreakpointValue({ base: false, md: true });
   return (
     <>
-      <CartModal isOpen={isOpen} onClose={onClose} />
       {isWide ? (
         <Flex>
           <HStack
@@ -40,7 +38,7 @@ export const Dashboard = () => {
               </Text>
             </Box>
             <Box>
-              <SearchBox isOpen={isOpen} />
+              <SearchBox />
             </Box>
           </HStack>
         </Flex>
@@ -66,7 +64,7 @@ export const Dashboard = () => {
               </Text>
             </Box>
             <Box>
-              <SearchBox isOpen={isOpen} />
+              <SearchBox />
             </Box>
           </HStack>
         </Flex>

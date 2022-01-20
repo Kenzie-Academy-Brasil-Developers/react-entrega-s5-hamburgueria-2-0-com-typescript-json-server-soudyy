@@ -15,6 +15,7 @@ interface CartContextData {
   cartItem: SetCart[];
   addToCart: (item: SetCart) => void;
   removeFromCart: (itemToRemove: SetCart) => void;
+  clearCart: () => void;
 }
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
@@ -44,8 +45,13 @@ const CartProvider = ({ children }: CartProviderProps) => {
   const removeFromCart = (itemToRemove: SetCart) => {
     setCartItem(cartItem.filter((item) => item.id !== itemToRemove.id));
   };
+  const clearCart = () => {
+    setCartItem([]);
+  };
   return (
-    <CartContext.Provider value={{ cartItem, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{ cartItem, addToCart, removeFromCart, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

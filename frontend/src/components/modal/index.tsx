@@ -22,7 +22,7 @@ interface ModalCreate {
   onClose: () => void;
 }
 export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
-  const { cartItem, removeFromCart, addToCart } = useCart();
+  const { cartItem, removeFromCart, addToCart, clearCart } = useCart();
   console.log(cartItem);
   return (
     <>
@@ -49,6 +49,8 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
             display="flex"
             flexDirection="column"
             justifyContent="center"
+            maxH="350px"
+            overflowY="scroll"
           >
             {cartItem.length === 0 ? (
               <VStack spacing="5">
@@ -72,6 +74,7 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
                       key={index}
                       justifyContent="space-between"
                       alignItems="flex-start"
+                      mb="10px"
                     >
                       <Box display="flex">
                         <Image h="80px" w="80px" bg="gray.100" src={item.img} />
@@ -117,27 +120,29 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
                           </Box>
                         </Box>
                       </Box>
-                      <FaTrash color={theme.colors.gray[300]} />
-                    </HStack>
-                    <br />
-                    <VStack mb="10px" borderTop="2px" borderColor="gray.100">
-                      <Box
-                        display="flex"
-                        w="90%"
-                        justifyContent="space-between"
-                        m="15px"
-                      >
-                        <Text>Total</Text>
-                        <Text>
-                          R$ {cartItem.reduce((a, b) => a + b.price, 0)}.00
-                        </Text>
-                      </Box>
-                      <Button width="90%" color="gray.300">
-                        Remover Todos
+
+                      <Button onClick={() => removeFromCart(item)} bg="none">
+                        <FaTrash color={theme.colors.gray[300]} />
                       </Button>
-                    </VStack>
+                    </HStack>
                   </>
                 ))}
+                <VStack mb="10px" borderTop="2px" borderColor="gray.100">
+                  <Box
+                    display="flex"
+                    w="90%"
+                    justifyContent="space-between"
+                    m="15px"
+                  >
+                    <Text>Total</Text>
+                    <Text>
+                      R$ {cartItem.reduce((a, b) => a + b.price, 0)}.00
+                    </Text>
+                  </Box>
+                  <Button onClick={clearCart} width="90%" color="gray.300">
+                    Remover Todos
+                  </Button>
+                </VStack>
               </>
             )}
           </ModalBody>

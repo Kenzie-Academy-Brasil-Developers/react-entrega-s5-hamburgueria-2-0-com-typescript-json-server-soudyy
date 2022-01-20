@@ -1,4 +1,11 @@
-import { Box, Button, Flex, theme, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  theme,
+  useBreakpointValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { FaSearch } from "react-icons/fa";
 import { useAuth } from "../../contexts/authContext";
@@ -6,16 +13,17 @@ import { Input } from "../inputs";
 import { BsFillCartFill } from "react-icons/bs";
 import { MdOutlineExitToApp } from "react-icons/md";
 import { useCart } from "../../contexts/cartContext";
+import { CartModal } from "../modal";
 interface SearchData {
   title: string;
 }
-interface SeachBoxProps {
-  isOpen: boolean;
-}
-export const SearchBox = (isOpen: SeachBoxProps) => {
+
+export const SearchBox = () => {
   const { cartItem } = useCart();
   const { signOut } = useAuth();
   const { register } = useForm();
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  console.log("Search", onOpen);
   const handleSearch = ({ title }: SearchData) => {
     // setCartItem(cartItem.filter((item) => item.name === title));
     console.log(cartItem);
@@ -23,6 +31,7 @@ export const SearchBox = (isOpen: SeachBoxProps) => {
   const isWide = useBreakpointValue({ base: false, md: true });
   return (
     <>
+      <CartModal isOpen={isOpen} onClose={onClose} />
       {isWide ? (
         <Flex
           mt="3"
@@ -67,7 +76,7 @@ export const SearchBox = (isOpen: SeachBoxProps) => {
             color="gray.500"
             h="60px"
             borderRadius="8px"
-            onClick={() => isOpen}
+            onClick={onOpen}
             mt={["4", "4", "0"]}
             _hover={{ bg: "none", color: "green.500" }}
             _focus={{ border: "none" }}
@@ -116,7 +125,7 @@ export const SearchBox = (isOpen: SeachBoxProps) => {
               h="60px"
               borderRadius="8px"
               padding="0"
-              onClick={() => isOpen}
+              onClick={onOpen}
               _hover={{ bg: "none", color: "green.500" }}
               _focus={{ border: "none" }}
             >
