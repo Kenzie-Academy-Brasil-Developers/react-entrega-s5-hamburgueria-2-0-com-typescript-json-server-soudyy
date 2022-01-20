@@ -19,14 +19,13 @@ interface SearchData {
 }
 
 export const SearchBox = () => {
-  const { cartItem } = useCart();
+  const { cartItem, setCartItem } = useCart();
   const { signOut } = useAuth();
   const { register } = useForm();
   const { onOpen, isOpen, onClose } = useDisclosure();
-  console.log("Search", onOpen);
   const handleSearch = ({ title }: SearchData) => {
-    // setCartItem(cartItem.filter((item) => item.name === title));
-    console.log(cartItem);
+    console.log(title);
+    setCartItem(cartItem.filter((item) => item.name === title));
   };
   const isWide = useBreakpointValue({ base: false, md: true });
   return (

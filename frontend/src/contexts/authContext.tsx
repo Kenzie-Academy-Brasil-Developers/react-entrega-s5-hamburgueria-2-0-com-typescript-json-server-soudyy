@@ -57,7 +57,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
     const response = await api.post("/login", { email, password });
     const { accessToken, user } = response.data;
-    console.log(response.data);
     localStorage.setItem("@hamburgueria:accessToken", accessToken);
     localStorage.setItem("@hamburgueria:user", JSON.stringify(user));
     setData({ accessToken, user });

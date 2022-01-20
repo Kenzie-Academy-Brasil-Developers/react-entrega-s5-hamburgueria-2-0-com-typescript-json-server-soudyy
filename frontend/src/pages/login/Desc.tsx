@@ -16,8 +16,8 @@ export const Description = () => {
   return (
     <Flex
       flexDir="column"
-      m="5%"
-      w={["100%", "100%", "10%", "10%"]}
+      m="20px"
+      w={["100%", "100%", "377px", "377px"]}
       justifyContent="center"
       alignItems="center"
     >
@@ -31,6 +31,7 @@ export const Description = () => {
       </Box>
       <Box
         display="flex"
+        alignSelf="flex-start"
         border="1px"
         borderColor="gray.100"
         borderRadius="5px"

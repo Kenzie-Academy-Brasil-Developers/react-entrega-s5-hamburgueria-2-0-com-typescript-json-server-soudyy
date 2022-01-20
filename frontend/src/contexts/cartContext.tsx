@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 interface CartProviderProps {
   children: ReactNode;
@@ -11,11 +11,15 @@ interface SetCart {
   price: number;
   img: string;
 }
+interface TotalCart {
+  totalCart: number;
+}
 interface CartContextData {
   cartItem: SetCart[];
   addToCart: (item: SetCart) => void;
   removeFromCart: (itemToRemove: SetCart) => void;
   clearCart: () => void;
+  setCartItem: React.Dispatch<React.SetStateAction<SetCart[]>>;
 }
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
@@ -28,20 +32,21 @@ const useCart = () => {
 };
 
 const CartProvider = ({ children }: CartProviderProps) => {
-  const [cartItem, setCartItem] = useState<SetCart[]>([
-    {
-      id: 1,
-      name: "Hamburguer",
-      category: "Sanduíches",
-      price: 14.0,
-      img: "https://i.ibb.co/fpVHnZL/hamburguer.png",
-    },
-  ]);
-
+  const [cartItem, setCartItem] = useState<SetCart[]>([]);
+  const [qtd, setQtd] = useState(1);
   const addToCart = (item: SetCart) => {
-    console.log("ok");
-    setCartItem([...cartItem, item]);
+    if (item !== cartItem.find((itemF) => itemF === item)) {
+      setCartItem([...cartItem, item]);
+    } else {
+      // handleUp();
+    }
   };
+  // const handleUp = () => {
+  //   setQtd(qtd + 1);
+  // };
+  // const handleDown = () => {
+  //   setQtd(qtd - 1);
+  // };
   const removeFromCart = (itemToRemove: SetCart) => {
     setCartItem(cartItem.filter((item) => item.id !== itemToRemove.id));
   };
@@ -50,7 +55,7 @@ const CartProvider = ({ children }: CartProviderProps) => {
   };
   return (
     <CartContext.Provider
-      value={{ cartItem, addToCart, removeFromCart, clearCart }}
+      value={{ cartItem, setCartItem, addToCart, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>

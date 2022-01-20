@@ -13,6 +13,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { useCart } from "../../contexts/cartContext";
 import { theme } from "../../styles/themes";
@@ -23,7 +24,7 @@ interface ModalCreate {
 }
 export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
   const { cartItem, removeFromCart, addToCart, clearCart } = useCart();
-  console.log(cartItem);
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -49,8 +50,6 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
             display="flex"
             flexDirection="column"
             justifyContent="center"
-            maxH="350px"
-            overflowY="scroll"
           >
             {cartItem.length === 0 ? (
               <VStack spacing="5">
@@ -96,7 +95,7 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
                               borderRadius="none"
                               w="20px"
                               h="30px"
-                              onClick={() => removeFromCart(item)}
+                              onClick={() => console.log("manutenção")}
                             >
                               -
                             </Button>
@@ -113,7 +112,7 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
                               color="red.400"
                               w="30px"
                               h="30px"
-                              onClick={() => addToCart(item)}
+                              onClick={() => console.log("manutenção")}
                             >
                               +
                             </Button>
