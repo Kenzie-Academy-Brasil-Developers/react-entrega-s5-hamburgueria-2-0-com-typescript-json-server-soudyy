@@ -2,6 +2,7 @@ import {
   Box,
   Button,
   Flex,
+  Text,
   theme,
   useBreakpointValue,
   useDisclosure,
@@ -80,6 +81,19 @@ export const SearchBox = () => {
             _hover={{ bg: "none", color: "green.500" }}
             _focus={{ border: "none" }}
           >
+            <Text
+              position="absolute"
+              bg="green.600"
+              color="white"
+              borderRadius="100%"
+              fontSize="10px"
+              padding="5px"
+              top="2"
+              right="3"
+              w="20px"
+            >
+              {cartItem.length}
+            </Text>
             <BsFillCartFill fontSize="30px" />
           </Button>
           <Button
@@ -128,6 +142,19 @@ export const SearchBox = () => {
               _hover={{ bg: "none", color: "green.500" }}
               _focus={{ border: "none" }}
             >
+              <Text
+                position="absolute"
+                bg="green.600"
+                color="white"
+                borderRadius="100%"
+                fontSize="10px"
+                padding="5px"
+                top="2"
+                right="3"
+                w="20px"
+              >
+                {cartItem.length}
+              </Text>
               <BsFillCartFill fontSize="30px" />
             </Button>
             <Button

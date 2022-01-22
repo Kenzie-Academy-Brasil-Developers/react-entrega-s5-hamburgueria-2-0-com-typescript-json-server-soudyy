@@ -18,6 +18,7 @@ interface Products {
   category: string;
   price: number;
   img: string;
+  qtd: number;
 }
 
 export const Cards = () => {
@@ -40,10 +41,10 @@ export const Cards = () => {
       flexWrap={["nowrap", "nowrap", "wrap", "wrap"]}
       overflowX={["scroll", "scroll", "hidden", "hidden"]}
     >
-      {products.map((item) => {
+      {products.map((item, index) => {
         return (
           <Flex
-            key={item.id}
+            key={`lan${index}`}
             flexDir="column"
             height="350px"
             minWidth="300px"
@@ -55,13 +56,20 @@ export const Cards = () => {
             _hover={{ borderColor: "green.300" }}
           >
             <VStack mb="10px">
-              <Image
-                bg="gray.100"
-                w="100%"
-                h="150px"
-                src={item.img}
-                alt={item.name}
-              />
+              <Box
+                bgColor="gray.100"
+                width="100%"
+                display="flex"
+                justifyContent="center"
+              >
+                <Image
+                  bg="gray.100"
+                  w="70%"
+                  h="150px"
+                  src={item.img}
+                  alt={item.name}
+                />
+              </Box>
               <Box
                 h="10rem"
                 w="100%"

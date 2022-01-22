@@ -68,63 +68,56 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
             ) : (
               <>
                 {cartItem.map((item, index) => (
-                  <>
-                    <HStack
-                      key={index}
-                      justifyContent="space-between"
-                      alignItems="flex-start"
-                      mb="10px"
-                    >
-                      <Box display="flex">
-                        <Image h="80px" w="80px" bg="gray.100" src={item.img} />
-                        <Box ml="10px">
-                          <Text fontWeight="bold">{item.name}</Text>
-                          <Box
-                            mt="10px"
-                            display="flex"
-                            alignItems="center"
-                            w="106px"
+                  <HStack
+                    key={`ca${index}`}
+                    justifyContent="space-between"
+                    alignItems="flex-start"
+                    mb="10px"
+                  >
+                    <Box display="flex">
+                      <Image h="80px" w="80px" bg="gray.100" src={item.img} />
+                      <Box ml="10px">
+                        <Text fontWeight="bold">{item.name}</Text>
+                        <Box
+                          mt="10px"
+                          display="flex"
+                          alignItems="center"
+                          w="106px"
+                          h="30px"
+                          border="2px"
+                          borderColor="gray.100"
+                        >
+                          <Button
+                            padding="0"
+                            margin="0"
+                            color="red.400"
+                            borderRadius="none"
+                            w="20px"
                             h="30px"
-                            border="2px"
-                            borderColor="gray.100"
+                            onClick={() => removeFromCart(item)}
                           >
-                            <Button
-                              padding="0"
-                              margin="0"
-                              color="red.400"
-                              borderRadius="none"
-                              w="20px"
-                              h="30px"
-                              onClick={() => console.log("manutenção")}
-                            >
-                              -
-                            </Button>
-                            <Text
-                              textAlign="center"
-                              margin="5"
-                              w="30px"
-                              h="30px"
-                            >
-                              1
-                            </Text>
-                            <Button
-                              borderRadius="none"
-                              color="red.400"
-                              w="30px"
-                              h="30px"
-                              onClick={() => console.log("manutenção")}
-                            >
-                              +
-                            </Button>
-                          </Box>
+                            -
+                          </Button>
+                          <Text textAlign="center" margin="5" w="30px" h="30px">
+                            {item.qtd}
+                          </Text>
+                          <Button
+                            borderRadius="none"
+                            color="red.400"
+                            w="30px"
+                            h="30px"
+                            onClick={() => addToCart(item)}
+                          >
+                            +
+                          </Button>
                         </Box>
                       </Box>
+                    </Box>
 
-                      <Button onClick={() => removeFromCart(item)} bg="none">
-                        <FaTrash color={theme.colors.gray[300]} />
-                      </Button>
-                    </HStack>
-                  </>
+                    <Button onClick={() => removeFromCart(item)} bg="none">
+                      <FaTrash color={theme.colors.gray[300]} />
+                    </Button>
+                  </HStack>
                 ))}
                 <VStack mb="10px" borderTop="2px" borderColor="gray.100">
                   <Box
@@ -135,7 +128,7 @@ export const CartModal = ({ isOpen, onClose }: ModalCreate) => {
                   >
                     <Text>Total</Text>
                     <Text>
-                      R$ {cartItem.reduce((a, b) => a + b.price, 0)}.00
+                      R$ {cartItem.reduce((a, b) => a + b.price * b.qtd, 0)}.00
                     </Text>
                   </Box>
                   <Button onClick={clearCart} width="90%" color="gray.300">

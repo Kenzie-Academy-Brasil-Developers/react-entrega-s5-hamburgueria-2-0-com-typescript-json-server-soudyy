@@ -1,4 +1,11 @@
-import React, { createContext, ReactNode, useContext, useState } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { api } from "../services/api";
 
 interface CartProviderProps {
   children: ReactNode;
@@ -10,6 +17,7 @@ interface SetCart {
   category: string;
   price: number;
   img: string;
+  qtd: number;
 }
 interface TotalCart {
   totalCart: number;
@@ -30,25 +38,26 @@ const useCart = () => {
   }
   return context;
 };
-
 const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItem, setCartItem] = useState<SetCart[]>([]);
-  const [qtd, setQtd] = useState(1);
   const addToCart = (item: SetCart) => {
     if (item !== cartItem.find((itemF) => itemF === item)) {
+      item.qtd = 1;
       setCartItem([...cartItem, item]);
     } else {
-      // handleUp();
+      item.qtd += 1;
     }
   };
-  // const handleUp = () => {
-  //   setQtd(qtd + 1);
-  // };
-  // const handleDown = () => {
-  //   setQtd(qtd - 1);
-  // };
+  useEffect(() => {
+    setCartItem(cartItem);
+  }, [cartItem]);
+
   const removeFromCart = (itemToRemove: SetCart) => {
-    setCartItem(cartItem.filter((item) => item.id !== itemToRemove.id));
+    itemToRemove.qtd -= 1;
+
+    if (itemToRemove.qtd < 1) {
+      setCartItem(cartItem.filter((item) => item.id !== itemToRemove.id));
+    }
   };
   const clearCart = () => {
     setCartItem([]);
